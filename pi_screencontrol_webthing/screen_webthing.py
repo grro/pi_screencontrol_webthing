@@ -49,7 +49,17 @@ class ScreenThing(Thing):
                          'readOnly': True,
                      }))
 
-        screen.update_timeout(3 * 60)
+        self.timeout = Value(screen.timeout_sec, screen.update_timeout)
+        self.add_property(
+            Property(self,
+                     'timeout',
+                     self.timeout,
+                     metadata={
+                         'title': 'Screen turn off timeout',
+                         "type": "number",
+                         'description': 'The seconds after the screen turns off',
+                         'readOnly': False,
+                     }))
 
 
     def on_log(self, command_logs: List[str]):
