@@ -35,7 +35,7 @@ setup(
         'webthings', 'screen', 'activate', 'WS', 'raspberry', 'pi'
     ],
     install_requires=[
-        'webthing==0.15.0'
+        'webthing>=0.15.0'
     ],
     classifiers=[
         "Programming Language :: Python :: 3",
