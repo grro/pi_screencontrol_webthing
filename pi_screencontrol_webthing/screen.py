@@ -44,6 +44,7 @@ class Screen:
         new_on = self.__last_date_show_display + timedelta(seconds=self.timeout_sec) > datetime.now()
         if self.is_on != new_on:
             self.is_on = new_on
+            logging.info("[" + datetime.now().strftime('%Y-%m-%dT%H:%M:%S') + "] screen is active: " + self.is_on)
             self.__status_listener(self.is_on)
 
     def __execute_cmd(self, cmd: str):
