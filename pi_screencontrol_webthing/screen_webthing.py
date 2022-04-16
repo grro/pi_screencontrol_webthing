@@ -22,7 +22,7 @@ class ScreenThing(Thing):
 
 
         self.ioloop = tornado.ioloop.IOLoop.current()
-        screen = Screen(self.on_log, self.on_activated)
+        screen = Screen(self.on_activated)
 
         self.activated = Value(True, screen.show_display)
         self.add_property(
@@ -37,18 +37,6 @@ class ScreenThing(Thing):
                          'readOnly': False,
                      }))
 
-        self.log = Value("")
-        self.add_property(
-            Property(self,
-                     'log',
-                     self.log,
-                     metadata={
-                         'title': 'Command log',
-                         "type": "str",
-                         'description': 'The executed commands',
-                         'readOnly': True,
-                     }))
-
         self.timeout = Value(screen.timeout_sec, screen.update_timeout)
         self.add_property(
             Property(self,
@@ -60,13 +48,6 @@ class ScreenThing(Thing):
                          'description': 'The seconds after the screen turns off',
                          'readOnly': False,
                      }))
-
-
-    def on_log(self, command_logs: List[str]):
-        self.ioloop.add_callback(self.__update_log, command_logs)
-
-    def __update_log(self, command_logs: List[str]):
-        self.log.notify_of_external_update("\n".join(command_logs))
 
     def on_activated(self, is_on: bool):
         self.ioloop.add_callback(self.__update_activated, is_on)
