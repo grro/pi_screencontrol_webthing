@@ -41,7 +41,7 @@ class Screen:
                 logging.warning(e)
 
     def __refresh_on_flag(self):
-        new_on = self.__last_date_show_display + timedelta(seconds=self.timeout_sec) > datetime.now()
+        new_on = self.__last_date_show_display + timedelta(seconds=self.timeout_sec-3) >= datetime.now()
         if self.is_on != new_on:
             self.is_on = new_on
             logging.info("[" + datetime.now().strftime('%Y-%m-%dT%H:%M:%S') + "] screen is active: " + str(self.is_on))
